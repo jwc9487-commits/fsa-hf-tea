@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this model or data, please cite the article and this archive."
+title: "Fluorspar versus fluorosilicic acid for electronic-grade hydrogen fluoride: model, data, and figure scripts"
+version: 1.0.0
+date-released: 2026-10-05
+license: MIT
+authors:
+  - family-names: Jeong
+    given-names: Woochang
+    affiliation: "School of Chemical Engineering, Sungkyunkwan University"
+  - family-names: Kim
+    given-names: Jiyong
+    affiliation: "School of Chemical Engineering, Sungkyunkwan University"
+keywords:
+  - hydrogen fluoride
+  - fluorosilicic acid
+  - fluorspar
+  - techno-economic analysis
+  - life cycle assessment
+  - critical raw materials
