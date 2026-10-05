@@ -51,9 +51,9 @@ LAB_OVH = 0.15                                      # labor overhead, 15 % of di
 P = {
     # ---- Prices (Korea, 2025) [S3] ----
     "p_spar":    470,     # $/t acid-grade fluorspar, CIF [USGS MCS 2026]
-    "p_fsa":     190,     # $/t H2SiF6 (100 %), VAT excluded; median ex-works price of four Chinese regions, 12 Feb 2025 (215 incl. VAT / 1.13); range 93-246
+    "p_fsa":     190,     # $/t H2SiF6 (100 %), VAT excluded; median ex-works price of four Chinese regions, 12 Feb 2025 (215 incl. VAT / 1.13); range 105-246 (lowest and highest quotes at the regional midpoint concentrations)
     "p_h2so4":   60,      # $/t sulfuric acid 98 %, FOB Busan, 2025 Q3
-    "oleum_share": 0.38,  # share of oleum in the sulfuric acid of the fluorspar route [S2: Sanmei EIA, 1.01/2.62]
+    "oleum_share": 0.39,  # share of oleum in the sulfuric acid of the fluorspar route [S2: Sanmei EIA, 1.01/(1.61 + 1.01)]
     "oleum_mult": 1.1,    # price ratio oleum / 98 % acid [DERIVED: 20-65 % oleum = 1.045-1.146 t H2SO4-eq; low 1.0 = BusinessAnalytiq North America 2026; high 2.5 = Expert Market Research China 2025]
     "p_lime":    274,     # $/t Ca(OH)2 [USGS MCS 2026, United States as proxy]
     "p_ng":      16.7,    # $/GJ LHV natural gas (industrial city-gas tariff 21.33 KRW/MJ HHV = 15.0 $/GJ HHV x 1.11)
@@ -65,20 +65,20 @@ P = {
     "spar_t":    2.14,  "h2so4_spar": 2.6, "lime_spar": 0.03,       # t fluorspar, t H2SO4, t lime
     "ng_spar":   5.0,   "stm_spar":   1.1, "el_spar":   250,        # GJ LHV natural gas (4.0-6.8), GJ steam, kWh (150-556)
     "fsa_t":     1.55,  "h2so4_fsa":  0.0,                          # t FSA (100 %); no net acid use at an integrated site (diluted acid returned)
-    "stm_fsa":   12.0,  "el_fsa":     270,                          # GJ steam (12-16), kWh (220-315)
+    "stm_fsa":   14.0,  "el_fsa":     270,                          # GJ steam (5.5 t HP + 0.43 t LP x 2.34 GJ/t; 12 latent-heat to 16 total-enthalpy basis), kWh (220-315)
     "silica_t":  0.5,                                                # t dry SiO2 co-produced
     "gypsum_t":  3.65,                                               # t fluorogypsum (resource indicator)
     # ---- Purification increment (AHF purchased and purified; identical for both routes) [S2] ----
-    "ahf_in":    1.37,    # t AHF per t electronic-grade HF (Kaisheng)
+    "ahf_in":    1.39,    # t AHF per t electronic-grade HF (Kaisheng design: 12,348 t AHF / 8,910 t HF)
     "el_ehf":    814, "stm_ehf": 1.655,                              # kWh and GJ steam per t (1.45 GJ on a 2.05 GJ/t latent-heat basis x 2.34/2.05, same basis as p_steam)
     "hp_energy_frac": 0.4,  # energy of high-purity purification relative to electronic grade [DERIVED: one vs six columns, 0.2-0.7]
     "ahf_in_hp": 1.17,      # t AHF per t high-purity HF (yield 85.3 %, Zhongxin Gaobao)
-    "p_ind_hf":  1062,    # $/t HF (100 %) industrial-grade HF co-product, VAT excluded [S3: 2025 average AHF price x 0.70 / 7.19 / 1.13; range 788-1,602]
+    "p_ind_hf":  1060,    # $/t HF (100 %) industrial-grade HF co-product, VAT excluded [S3: mean of start- and end-of-2025 AHF prices x 0.70 / 7.19 / 1.13; range 787-1,600]
     # ---- Capital cost, $/(t/yr) HF (100 %), 2025 $ (CEPCI 2025 = 812.8) [S4] ----
-    "loc_cn_kr": 1.0,      # location factor China -> Korea [DERIVED: Korean anchor 2,234 / median of four Chinese plants 2,315 = 0.965; upper bound 1.84]
+    "loc_cn_kr": 1.0,      # location factor China -> Korea [DERIVED: Korean anchor 2,234 / median of four Chinese plants 2,337 = 0.956; upper bound 1.84]
     "capex_spar": 2234,   # fluorspar route, Korean anchor (50 kt/yr, 150 billion KRW, 2024, x 1.016)
-    "capex_fsa":  2315,   # FSA route, median of four new Chinese plants (2,254-2,466) x loc_cn_kr
-    "capex_hp":   1700,   # high-purity purification increment (420-1,300 $/t solution / 0.495 = 848-2,626; midpoint)
+    "capex_fsa":  2337,   # FSA route, median of four new Chinese plants (2,254-2,466) x loc_cn_kr
+    "capex_hp":   1380,   # high-purity purification increment (fixed investment 417-949 $/t solution / 0.495 = 842-1,917; midpoint)
     "capex_ehf":  4764,   # electronic-grade purification increment (Kaisheng 2,056 $/t solution / 0.495 = 4,154 in 2021 $ x 812.8/708.8; range 3,416-6,612)
     # ---- Staffing, persons per kt/yr [S4] ----
     "lab_ahf":   1.92,    # AHF plant (96 persons, 50 kt/yr fluorspar AHF plant); same for the FSA route, +/- 25 %
@@ -87,11 +87,11 @@ P = {
     "p_capex_frac": 0.0, "p_rm_steam": 0.0, "p_rm_elec": 0.0, "p_yield": 0.0,
     # ---- Emission factors (GtG, CtG) [S5] ----
     "ci_elec":   (0.4541, 0.53),     # kg/kWh: GIR 2024 consumption-end / Korean life-cycle factor
-    "ci_steam":  (0.0706, 0.0957),   # kg/MJ steam: combustion / + LNG upstream 20.3 g/MJ
-    "ci_ng":     (0.0562, 0.0768),   # kg/MJ fuel: IPCC 2006 / + LNG upstream
+    "ci_steam":  (0.0706, 0.0960),   # kg/MJ steam: GREET combustion 56.49 g/MJ / 0.8 boiler; + LNG upstream 20.3 g/MJ, / 0.8
+    "ci_ng":     (0.0562, 0.0765),   # kg/MJ fuel: IPCC 2006 / + LNG upstream 20.3 g/MJ
     "ci_spar":   (0.0, 0.0945),      # kg/kg acid-grade fluorspar (GREET 2023)
     "fsa_alloc": None,               # FSA upstream burden (M1): None = economic allocation linked to p_fsa; scenarios 0 (cut-off) and 1.86 (mass)
-    "e_p2o5": 1251, "m_fsa_p2o5": 0.040, "p_p2o5": 1000,   # kg CO2eq/t P2O5 (GREET) · t FSA/t P2O5 (BREF) · $/t P2O5 (900-1,300)
+    "e_p2o5": 1379, "m_fsa_p2o5": 0.040, "p_p2o5": 1000,   # kg CO2eq/t P2O5 (GREET 1,251 per short ton / 0.90718) · t FSA/t P2O5 (BREF) · $/t P2O5 (900-1,300)
     "ci_h2so4":  (0.0, 0.17),        # kg/kg sulfuric acid 98 % (KEITI; GREET 0.045 = low value)
     "ci_oleum":  (0.0, 0.197),       # kg/kg H2SO4-eq oleum (KEITI 0.206/kg product / 1.045)
     "ci_lime":   (0.0, 0.97),        # kg/kg lime (GREET 2023)
@@ -232,19 +232,19 @@ SENS = [
     ("Natural gas price",              dict(p_ng=12.9*1.11), dict(p_ng=18.2*1.11)),   # 14.3 / 20.2 $/GJ LHV
     ("Steam price",                    dict(p_steam=30/2.34), dict(p_steam=55/2.34)), # 12.8 / 23.5 $/GJ
     ("Sulfuric acid price",            dict(p_h2so4=32), dict(p_h2so4=125)),
-    ("FSA price",                      dict(p_fsa=93), dict(p_fsa=246)),          # the M1 allocation follows p_fsa
+    ("FSA price",                      dict(p_fsa=105), dict(p_fsa=246)),   # lowest and highest quotes, each at its regional midpoint concentration          # the M1 allocation follows p_fsa
     ("Fluorspar price",                dict(p_spar=405), dict(p_spar=504)),
     ("AHF plant staffing",             dict(lab_ahf=1.44), dict(lab_ahf=2.40)),   # +/- 25 %
     ("Kiln fuel",                      dict(ng_spar=4.0), dict(ng_spar=6.8)),
     ("Fluorspar-route electricity",    dict(el_spar=150), dict(el_spar=556)),
-    ("FSA-route steam",                {}, dict(stm_fsa=16)),
+    ("FSA-route steam",                dict(stm_fsa=12.0), dict(stm_fsa=16)),
     ("FSA-route electricity",          dict(el_fsa=220), dict(el_fsa=315)),
     ("FSA-route capital cost",         dict(capex_fsa=2254), dict(capex_fsa=2466)),
     ("Fluorspar-route capital cost",   dict(capex_spar=1388), dict(capex_spar=2355)),
-    ("Location factor",                dict(loc_cn_kr=0.965, capex_fsa=2315*0.965), dict(loc_cn_kr=1.84, capex_fsa=2315*1.84)),
+    ("Location factor",                dict(loc_cn_kr=0.956, capex_fsa=2337*0.956), dict(loc_cn_kr=1.84, capex_fsa=2337*1.84)),
     ("Purification capital cost",      dict(capex_ehf=3416), dict(capex_ehf=6612)),
     ("Purification AHF input",         dict(ahf_in=1/0.88), {}),                  # electronic-grade yield 88 % / 73 %
-    ("Industrial-grade HF price",      dict(p_ind_hf=788), dict(p_ind_hf=1602)),
+    ("Industrial-grade HF price",      dict(p_ind_hf=787), dict(p_ind_hf=1600)),
     ("Labor cost",                     dict(salary=20800), dict(salary=64000)),   # 20.8 k$ (China) / 64 k$
     ("Oleum price ratio",              dict(oleum_mult=1.0), dict(oleum_mult=2.5)),
     ("Gypsum landfill cost",           dict(c_landfill=3.5), dict(c_landfill=70)),
@@ -252,7 +252,7 @@ SENS = [
     ("Phosphorus removal increment",   {}, dict(p_capex_frac=0.05, p_rm_steam=0.25, p_rm_elec=15, p_yield=0.03)),
     ("Sulfuric acid emission factor",  dict(ci_h2so4=(0, 0.045), ci_oleum=(0, 0.045*0.197/0.17)), {}),   # oleum factor scaled with it
     ("Electricity emission factor",    dict(ci_elec=(0.4541, 0.495)), {}),        # CtG 0.495 / 0.53
-    ("Capacity utilization",           {}, dict(capex_spar=2234/0.85, capex_fsa=2315/0.85, capex_ehf=4764/0.85, capex_hp=1700/0.85, lab_ahf=1.92/0.85, lab_ehf=3.4/0.85)),  # 85 %: capital and labor / 0.85
+    ("Capacity utilization",           {}, dict(capex_spar=2234/0.85, capex_fsa=2337/0.85, capex_ehf=4764/0.85, capex_hp=1380/0.85, lab_ahf=1.92/0.85, lab_ehf=3.4/0.85)),  # 85 %: capital and labor / 0.85
 ]
 
 if __name__ == "__main__":

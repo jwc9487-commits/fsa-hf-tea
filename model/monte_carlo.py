@@ -29,26 +29,26 @@ TRI = {
     "p_ng":        (12.9*1.11, 16.7, 18.2*1.11),
     "p_steam":     (30/2.34, 18.8, 55/2.34),
     "p_h2so4":     (32, 60, 125),
-    "p_fsa":       (93, 190, 246),          # the M1 allocation follows p_fsa
+    "p_fsa":       (105, 190, 246),          # the M1 allocation follows p_fsa
     "p_p2o5":      (900, 1000, 1300),
-    "e_p2o5":      (1251, 1251, 1350),       # high = GREET cradle-to-gate including product transport
+    "e_p2o5":      (1379, 1379, 1488),       # high = GREET cradle-to-gate including product transport
     "m_fsa_p2o5":  (0.027, 0.040, 0.053),   # BREF
     "p_spar":      (405, 470, 504),
     "oleum_mult":  (1.0, 1.1, 2.5),
     "lab_ahf":     (1.44, 1.92, 2.40),
     "ng_spar":     (4.0, 5.0, 6.8),
     "el_spar":     (150, 250, 556),
-    "stm_fsa":     (12, 12, 16),
+    "stm_fsa":     (12, 14, 16),
     "el_fsa":      (220, 270, 315),
     "capex_spar":  (1388, 2234, 2355),
-    "capex_fsa":   (2254, 2315, 2466),
-    "loc_cn_kr":   (0.965, 1.0, 1.84),
-    "capex_hp":    (420/0.495, 1700, 1300/0.495),
+    "capex_fsa":   (2254, 2337, 2466),
+    "loc_cn_kr":   (0.956, 1.0, 1.84),
+    "capex_hp":    (417/0.495, 1380, 949/0.495),
     "capex_ehf":   (3416, 4764, 6612),
     "hp_energy_frac": (0.2, 0.4, 0.7),
-    "ahf_in":      (1/0.88, 1.37, 1.37),     # electronic-grade yield 88-73 %
+    "ahf_in":      (1/0.88, 1.39, 1.39),     # electronic-grade yield 88-73 %
     "ahf_in_hp":   (1/0.94, 1.17, 1/0.80),   # high-purity yield 94-80 %
-    "p_ind_hf":    (788, 1062, 1602),
+    "p_ind_hf":    (787, 1060, 1600),
     "gyp_sold":    (0.25, 0.5, 0.9),
     "c_landfill":  (3.5, 20, 70),
     "ci_h2so4_ctg": (0.045, 0.17, 0.17),

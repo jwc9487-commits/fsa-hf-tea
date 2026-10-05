@@ -29,18 +29,18 @@ for name, lo, hi in SENS:
     rows.append((name, a_, b_))
 # input values shown in (b): unit, low, base, high
 TAB = {
-    "Location factor": ("–", "0.965", "1.0", "1.84"), "Sulfuric acid price": ("$/t", "32", "60", "125"),
-    "FSA price": ("$/t", "93", "190", "246"), "Fluorspar price": ("$/t", "405", "470", "504"),
-    "Purification AHF input": ("t/t", "1.14", "1.37", "1.37"),
+    "Location factor": ("–", "0.956", "1.0", "1.84"), "Sulfuric acid price": ("$/t", "32", "60", "125"),
+    "FSA price": ("$/t", "105", "190", "246"), "Fluorspar price": ("$/t", "405", "470", "504"),
+    "Purification AHF input": ("t/t", "1.14", "1.39", "1.39"),
     "Fluorspar-route capital cost": ("$/(t/yr)", "1,388", "2,234", "2,355"),
     "Gypsum landfill cost": ("$/t", "3.5", "20", "70"), "Oleum price ratio": ("–", "1.0", "1.1", "2.5"),
-    "FSA-route steam": ("GJ/t", "12", "12", "16"), "Phosphorus removal increment": ("–", "0", "0", "High case"),
+    "FSA-route steam": ("GJ/t", "12", "14", "16"), "Phosphorus removal increment": ("–", "0", "0", "High case"),
     "Steam price": ("$/GJ", "12.8", "18.8", "23.5"), "Fluorspar-route electricity": ("kWh/t", "150", "250", "556"),
     "Electricity price": ("$/kWh", "0.108", "0.118", "0.128"), "Natural gas price": ("$/GJ", "14.3", "16.7", "20.2"),
     "AHF plant staffing": ("persons/kt", "1.44", "1.92", "2.40"), "Kiln fuel": ("GJ/t", "4.0", "5.0", "6.8"),
-    "FSA-route electricity": ("kWh/t", "220", "270", "315"), "FSA-route capital cost": ("$/(t/yr)", "2,254", "2,315", "2,466"),
+    "FSA-route electricity": ("kWh/t", "220", "270", "315"), "FSA-route capital cost": ("$/(t/yr)", "2,254", "2,337", "2,466"),
     "Purification capital cost": ("$/(t/yr)", "3,416", "4,764", "6,612"),
-    "Industrial-grade HF price": ("$/t", "788", "1,062", "1,602"), "Labor cost": ("k$/person", "20.8", "58.7", "64.0"),
+    "Industrial-grade HF price": ("$/t", "787", "1,060", "1,600"), "Labor cost": ("k$/person", "20.8", "58.7", "64.0"),
     "Phosphate value": ("$/t", "1,300", "1,000", "900"), "Capacity utilization": ("%", "100", "100", "85")}
 rows = [(n, a_, b_) for n, a_, b_ in rows if abs(a_-g0) + abs(b_-g0) > 1e-3]
 rows.sort(key=lambda t: max(abs(t[1]-g0), abs(t[2]-g0)))

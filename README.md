@@ -15,7 +15,8 @@ The model compares hydrogen fluoride (HF) made from mined fluorspar with HF made
 | `results/mc_results.npz` | Monte Carlo output read by the figure scripts (regenerated exactly by `model/monte_carlo.py`) |
 | `inputs/parameters.csv` | Every model input with its base value, Monte Carlo range, unit, and the Supplementary Information table that gives its source |
 | `data/usgs_mcs2026_production_2025.csv` | Fluorspar and phosphate rock production by country, 2025 estimates (USGS Mineral Commodity Summaries 2026) |
-| `data/figure_source_data.xlsx` | Plotted values of every figure, one sheet per figure |
+| `data/figure_source_data.xlsx` | Plotted values of every figure, one sheet per figure (built by `figures/build_source_data.py`) |
+| `data/source_dossier.xlsx` | Non-English and web sources behind the input values, with the original wording, an English translation, and the capital-cost anchors |
 | `figures/` | Scripts that draw Figs. 2–4, Fig. A.1, and Fig. S1 |
 
 ## Requirements
@@ -38,6 +39,7 @@ python figures/fig3_resource.py
 python figures/fig4_sensitivity_qualification.py
 python figures/figA1_price_supply.py
 python figures/figS1_system_boundary.py
+python figures/build_source_data.py   # rebuilds data/figure_source_data.xlsx
 ```
 
 Figures are written to `output/` as PNG (500 dpi) and SVG.
@@ -58,14 +60,19 @@ The published figures were assembled and lettered in PowerPoint from these outpu
 
 | | Fluorspar route | FSA route |
 |---|---|---|
-| Unit production cost ($/kg HF) | 2.90 | 1.84 |
-| Cradle-to-gate emissions (kg CO2eq/kg HF) | 1.91 | 2.25 |
+| Unit production cost ($/kg HF) | 2.92 | 1.90 |
+| Cradle-to-gate emissions (kg CO2eq/kg HF) | 1.91 | 2.48 |
 
 ## Model conventions
 
 - Capital cost is annualized with a capital recovery factor at 8 % over 30 years; fixed operating cost is 3 % of capital per year; labor overhead is 15 %.
 - The FSA upstream burden is allocated economically between phosphoric acid and FSA and follows the FSA price. Cut-off and mass allocation, avoided neutralization of marginal FSA, silica sale, and a non-integrated site are run as scenarios (`CRED` in `model/hf_tea_lca.py`), with the combination rules enforced by `validate`.
 - Source tags in the code comments refer to Supplementary Information Tables S2–S8 of the article, where each value is traced to its source.
+
+## Versions
+
+- v1.1: corrected the GREET phosphoric acid factor to a metric-tonne basis (1,379 kg CO2eq/t P2O5), put the FSA-route steam on the same enthalpy basis as the steam price (14 GJ/t HF), set the electronic-grade AHF input to the disclosed design ratio (1.39), and aligned several input ranges with their sources; added the source dossier.
+- v1.0: version submitted with the manuscript.
 
 ## License
 

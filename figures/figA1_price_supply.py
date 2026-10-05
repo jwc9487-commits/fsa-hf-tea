@@ -14,7 +14,7 @@ C_DOM, C_TRD = "#9C6B3C", "#1F4E79"
 FX, VAT = 7.19, 1.13
 # (grade position, low, high, type, label); dom = Chinese domestic price, trd = trade unit value
 PR = [(0, 11583/FX/VAT/1000, 13033/FX/VAT/1000, "dom", "China ex-works"),
-      (0, 2.40, 2.70, "trd", "US import"),
+      (0, 2.43, 2.55, "trd", "US import"),
       (1, 7885/0.49/FX/VAT/1000, 8750/0.49/FX/VAT/1000, "dom", "China UP, UP-S"),
       (1, 1346.79/0.49/1000, 1346.79/0.49/1000, "trd", "China export"),
       (2, 2949.56/0.49/1000, 2949.56/0.49/1000, "trd", "China import"),

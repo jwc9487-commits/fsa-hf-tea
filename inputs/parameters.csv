@@ -1,8 +1,8 @@
 parameter,base_value,mc_low,mc_high,unit,description,SI_table
 p_spar,470,405,504,$/t,"Acid-grade fluorspar price, CIF",S3
-p_fsa,190,93,246,$/t H2SiF6 (100 %),"FSA price, VAT excluded",S3
+p_fsa,190,105,246,$/t H2SiF6 (100 %),"FSA price, VAT excluded",S3
 p_h2so4,60,32,125,$/t,Sulfuric acid (98 %) price,S3
-oleum_share,0.38,,,-,Share of oleum in the sulfuric acid of the fluorspar route,S2
+oleum_share,0.39,,,-,Share of oleum in the sulfuric acid of the fluorspar route,S2
 oleum_mult,1.1,1,2.5,-,Price ratio of oleum to 98 % sulfuric acid,S3
 p_lime,274,,,$/t,Lime (Ca(OH)2) price,S3
 p_ng,16.7,14.319,20.202,$/GJ LHV,Natural gas price,S3
@@ -18,20 +18,20 @@ stm_spar,1.1,,,GJ/t HF,"Steam, fluorspar route",S2
 el_spar,250,150,556,kWh/t HF,"Electricity, fluorspar route",S2
 fsa_t,1.55,,,t/t HF,FSA input (100 %),S2
 h2so4_fsa,0,,,t/t HF,"Net sulfuric acid input, FSA route (integrated site)",S2
-stm_fsa,12,12,16,GJ/t HF,"Steam, FSA route",S2
+stm_fsa,14,12,16,GJ/t HF,"Steam, FSA route",S2
 el_fsa,270,220,315,kWh/t HF,"Electricity, FSA route",S2
 silica_t,0.5,,,t/t HF,Silica co-produced (dry),S2
 gypsum_t,3.65,,,t/t HF,Fluorogypsum co-produced,S2
-ahf_in,1.37,1.13636,1.37,t AHF/t HF,AHF input to electronic-grade purification,S2
+ahf_in,1.39,1.13636,1.39,t AHF/t HF,AHF input to electronic-grade purification,S2
 el_ehf,814,,,kWh/t HF,"Electricity, electronic-grade purification",S2
 stm_ehf,1.655,,,GJ/t HF,"Steam, electronic-grade purification",S2
 hp_energy_frac,0.4,0.2,0.7,-,Energy of high-purity purification relative to electronic grade,S2
 ahf_in_hp,1.17,1.06383,1.25,t AHF/t HF,AHF input to high-purity purification,S2
-p_ind_hf,1062,788,1602,$/t,"Industrial-grade HF co-product price, VAT excluded",S3
-loc_cn_kr,1,0.965,1.84,-,"Location factor, China to Korea",S4
+p_ind_hf,1060,787,1600,$/t,"Industrial-grade HF co-product price, VAT excluded",S3
+loc_cn_kr,1,0.956,1.84,-,"Location factor, China to Korea",S4
 capex_spar,2234,1388,2355,$/(t/yr),"Capital cost, fluorspar-route AHF plant",S4
-capex_fsa,2315,2254,2466,$/(t/yr),"Capital cost, FSA-route AHF plant",S4
-capex_hp,1700,848.485,2626.26,$/(t/yr),"Capital cost increment, high-purity purification",S4
+capex_fsa,2337,2254,2466,$/(t/yr),"Capital cost, FSA-route AHF plant",S4
+capex_hp,1380,842.424,1917.17,$/(t/yr),"Capital cost increment, high-purity purification",S4
 capex_ehf,4764,3416,6612,$/(t/yr),"Capital cost increment, electronic-grade purification",S4
 lab_ahf,1.92,1.44,2.4,persons per kt/yr,"Staffing, AHF plant",S4
 lab_ehf,3.4,,,persons per kt/yr,"Staffing, purification",S4
@@ -40,11 +40,11 @@ p_rm_steam,0,,,GJ/t HF,Phosphorus removal: steam (high case 0.25),S2
 p_rm_elec,0,,,kWh/t HF,Phosphorus removal: electricity (high case 15),S2
 p_yield,0,,,-,Phosphorus removal: yield loss (high case 0.03),S2
 ci_elec,0.4541 / 0.53,CtG 0.495,CtG 0.53,kg CO2eq/kWh,"Electricity emission factor (on-site, cradle-to-gate)",S5
-ci_steam,0.0706 / 0.0957,,,kg CO2eq/MJ,"Steam emission factor (on-site, cradle-to-gate)",S5
-ci_ng,0.0562 / 0.0768,,,kg CO2eq/MJ,"Natural gas emission factor (on-site, cradle-to-gate)",S5
+ci_steam,0.0706 / 0.096,,,kg CO2eq/MJ,"Steam emission factor (on-site, cradle-to-gate)",S5
+ci_ng,0.0562 / 0.0765,,,kg CO2eq/MJ,"Natural gas emission factor (on-site, cradle-to-gate)",S5
 ci_spar,0 / 0.0945,,,kg CO2eq/kg,"Acid-grade fluorspar emission factor (on-site, cradle-to-gate)",S5
 fsa_alloc,,,,kg CO2eq/kg HF,FSA upstream burden; empty = economic allocation computed from p_fsa,"S6, S7"
-e_p2o5,1251,1251,1350,kg CO2eq/t P2O5,Phosphoric acid emission factor,"S5, S6"
+e_p2o5,1379,1379,1488,kg CO2eq/t P2O5,Phosphoric acid emission factor,"S5, S6"
 m_fsa_p2o5,0.04,0.027,0.053,t FSA/t P2O5,FSA recovered per t P2O5,S6
 p_p2o5,1000,900,1300,$/t P2O5,Phosphate value for allocation,S6
 ci_h2so4,0 / 0.17,CtG 0.045,CtG 0.17,kg CO2eq/kg,"Sulfuric acid emission factor (on-site, cradle-to-gate)",S5

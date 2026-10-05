@@ -108,7 +108,7 @@ for g in GRADES:
         i += 1
 pair_brackets(ax, tot, 0.19, lambda v: f"{v:.2f}".replace("-", "−"), NOTE)
 ax.set_ylabel("GHG emissions (kg CO$_{2eq}$/kg HF)")
-ax.set_ylim(-0.1, 3.0)
+ax.set_yticks([0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]); ax.set_ylim(-0.1, 3.3)
 h = [Patch(facecolor=col3[c], edgecolor="white", hatch="////" if c == "Purification increment" else None, label=c) for c in col3]
 h.append(plt.Line2D([], [], marker="D", ls="", ms=4.2, mfc="white", mec="black", mew=0.8, label="On-site emissions"))
 ax.legend(handles=h, loc="upper center", bbox_to_anchor=(0.46, -0.27), ncol=5, frameon=False, fontsize=6.0, handlelength=1.2, columnspacing=0.8, handletextpad=0.5)
