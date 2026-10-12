@@ -54,8 +54,9 @@ with open(os.path.join(DATA, "usgs_mcs2026_production_2025.csv"), encoding="utf-
     for r in csv.DictReader(f):
         fl[r["country"]] = float(r["fluorspar_kt"]); ph[r["country"]] = float(r["phosphate_rock_kt"])
 def shares(d, tot, k=3):
-    """Three largest producers (country, %) and the Herfindahl-Hirschman index over the listed
-    countries; a lower bound, because 'Other countries' is one aggregated row."""
+    """Three largest producers (country, %) and the Herfindahl-Hirschman index over all listed rows,
+    with shares of the USGS world total. 'Other countries' (2 % of fluorspar, 0.3 % of phosphate rock)
+    is counted as one producer; splitting it changes the index by less than 10 points."""
     top = sorted(d.items(), key=lambda kv: -kv[1])[:k]
     return [(c, v/tot*100) for c, v in top], sum((v/tot*100)**2 for v in d.values())
 SF, HF_ = shares(fl, 10000); SP, HP = shares(ph, 250000)
@@ -134,7 +135,7 @@ for yi, (lab, sh, h) in enumerate((("Phosphate rock", SP, HP), ("Fluorspar", SF,
     if 100-left >= 20:
         a.text((left+100)/2, yi, "Others", ha="center", va="center", fontsize=5.4, color=C_TXT)
 a.set_yticks([])
-for yi, lab in ((0, f"Phosphate rock, HHI ≥{HP:,.0f}"), (1, f"Fluorspar, HHI ≥{HF_:,.0f}")):
+for yi, lab in ((0, f"Phosphate rock, HHI ≈{round(HP, -2):,.0f}"), (1, f"Fluorspar, HHI ≈{round(HF_, -2):,.0f}")):
     a.text(1.5, yi + 0.27, lab, ha="left", va="bottom", fontsize=6.5, fontweight="bold", color=C_TXT)
 a.set_xlim(0, 100); a.set_ylim(-0.45, 1.75)
 a.set_xlabel("Share of world production (%)")

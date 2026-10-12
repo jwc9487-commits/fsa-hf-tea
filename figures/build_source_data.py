@@ -39,6 +39,8 @@ for r in [('Fig1', 'Overview of the modeled system and research questions', '- (
           ('Fig3', 'Resource conservation and its emission trade-off', 'figures/fig3_resource.py', 'hf_tea_lca scenarios; USGS MCS 2026; MarketsandMarkets 2025'),
           ('Fig4abc', 'One-at-a-time sensitivity, input values, and Monte Carlo cost gap', 'figures/fig4_sensitivity_qualification.py', 'hf_tea_lca.SENS; results/mc_results.npz'),
           ('Fig4d', 'One-time qualification cost absorbed', 'figures/fig4_sensitivity_qualification.py', 'Electronic-grade cost gap; Monte Carlo 5th-95th percentile'),
+          ('Fig4c_draws', 'All Monte Carlo draws: cost and emissions by route and grade', 'model/monte_carlo.py', 'results/mc_results.npz'),
+          ('Fig4c_inputs', 'Input values sampled in each Monte Carlo draw', 'model/monte_carlo.py', 'results/mc_results.npz'),
           ('FigA.1', 'Appendix A: HF price by grade and fluorspar production', 'figures/figA1_price_supply.py', 'Price sources in SI Table S3 and the source dossier; USGS MCS 2026'),
           ('FigS1', 'System boundary and multifunctional points', 'figures/figS1_system_boundary.py', 'SI Table S6'),
           ('FigS2', 'Producer concentration versus recovery of phosphate fluorine', '- (values below)', 'USGS MCS 2026')]:
@@ -92,7 +94,7 @@ for lab, lo, hi, s in (('Electronic-grade HF demand, 2025', 0.3, 0.4, 'SI Sectio
 fl, ph = {}, {}
 with open(os.path.join(DATA, 'usgs_mcs2026_production_2025.csv'), encoding='utf-8') as f:
     for r in csv.DictReader(f): fl[r['country']] = float(r['fluorspar_kt']); ph[r['country']] = float(r['phosphate_rock_kt'])
-ws.append([]); header(ws, ['Panel', 'Commodity', 'China %', 'Second', 'Third', 'HHI (lower bound)', 'Source'])
+ws.append([]); header(ws, ['Panel', 'Commodity', 'China %', 'Second', 'Third', 'HHI', 'Source'])
 for lab, d, tot in (('Fluorspar', fl, 10000), ('Phosphate rock', ph, 250000)):
     top = sorted(d.items(), key=lambda kv: -kv[1])[:3]
     ws.append(['d', lab, round(top[0][1]/tot*100, 1), f'{top[1][0]} {top[1][1]/tot*100:.1f}', f'{top[2][0]} {top[2][1]/tot*100:.1f}',
@@ -106,20 +108,24 @@ TAB = {'Electricity price': '0.108, 0.118, 0.128 $/kWh', 'Natural gas price': '1
        'Fluorspar-route capital cost': '1,388, 2,234, 2,355 $/(t/yr)', 'Location factor': '0.956, 1.0, 1.84',
        'Purification capital cost': '3,416, 4,764, 6,612 $/(t/yr)', 'Purification AHF input': '1.14, 1.39, 1.39 t/t',
        'Industrial-grade HF price': '787, 1,060, 1,600 $/t', 'Labor cost': '20.8, 58.7, 64.0 k$/person', 'Oleum price ratio': '1.0, 1.1, 2.5',
-       'Gypsum landfill cost': '3.5, 20, 70 $/t', 'Phosphate value': '1,300, 1,000, 900 $/t', 'Phosphorus removal increment': '0, 0, high case',
+       'Gypsum landfill cost': '3.5, 20, 70 $/t', 'Phosphate value': '1,300, 1,000, 900 $/t', 'Phosphorus removal increment': '0, 0, 0.094 $/kg',
        'Sulfuric acid emission factor': '0.045, 0.17, 0.17 kg/kg', 'Electricity emission factor': '0.495, 0.53, 0.53 kg/kWh', 'Capacity utilization': '100%, 100%, 85%'}
 def gap(p): return totals('Fluorspar', E, p)[0] - totals('FSA', E, p)[0]
 g0 = gap(P)
 ws = sheet('Fig4abc', 'Fig. 4a–c — (a) one-at-a-time sensitivity of the electronic-grade cost gap, (b) low, base, and high input values (column C), (c) Monte Carlo cost gap by grade',
-           f'Base electronic-grade cost gap = {g0:.4f} $/kg HF; panel (a) plots (gap − base)/base × 100 for the 12 inputs with the largest swing')
-header(ws, ['Panel', 'Input (figure label)', 'Low, base, high', 'Gap at low value ($/kg HF)', 'Gap at high value ($/kg HF)', 'Swing', 'Plotted in Fig. 4a'])
+           f'Base electronic-grade cost gap = {g0:.4f} $/kg HF; panel (a) plots the change in cost gap, (gap − base)/base × 100 (columns H–I), for the 12 inputs with the largest swing')
+header(ws, ['Panel', 'Input (figure label)', 'Low, base, high', 'Gap at low value ($/kg HF)', 'Gap at high value ($/kg HF)', 'Swing', 'Plotted in Fig. 4a',
+            'Change in cost gap at low value (%)', 'Change in cost gap at high value (%)', 'Bar label, low', 'Bar label, high'])
 rows = []
 for n, lo, hi in SENS:
     a_ = gap(with_(**lo)) if lo else g0; b_ = gap(with_(**hi)) if hi else g0
     rows.append((n, a_, b_, max(abs(a_ - g0), abs(b_ - g0))))
 rows.sort(key=lambda t: -t[3])
 for i, (n, a_, b_, s_) in enumerate(rows):
-    ws.append(['a', n, TAB[n], round(a_, 4), round(b_, 4), round(s_, 4), 'yes' if i < 12 and s_ > 1e-3 else 'no'])
+    pl, ph = (a_ - g0)/g0*100, (b_ - g0)/g0*100
+    lab = lambda v: 'no label' if abs(v) < 0.05 else (f'{v:+.0f}%' if abs(v) >= 1 else f'{v:+.1f}%').replace('-', '−')
+    ws.append(['a', n, TAB[n], round(a_, 4), round(b_, 4), round(s_, 4), 'yes' if i < 12 and s_ > 1e-3 else 'no',
+               round(pl, 2), round(ph, 2), lab(pl), lab(ph)])
 mc = load_mc()
 ws.append([]); header(ws, ['Panel', 'Grade', 'P5', 'Median', 'P95', 'Share of draws with gap > 0'])
 for g in GRADES:
@@ -137,6 +143,41 @@ ws.append([]); header(ws, ['Marker', 'Volume (kt/yr)', 'Share of demand (%)', 'C
 for lab, v, calc in (('5-yr term absorbs $10 million', 10/(g0*5), '10 / (gap × 5)'), ('18-month term absorbs $10 million', 10/(g0*1.5), '10 / (gap × 1.5)'),
                      ('5-yr term at P5 gap', 10/(p5*5), '10 / (P5 gap × 5)')):
     ws.append([lab, round(v, 3), f'{v/400*100:.2f}–{v/300*100:.2f}', calc])
+
+# Fig4c_draws, Fig4c_inputs: every Monte Carlo draw (results/mc_results.npz)
+ws = sheet('Fig4c_draws', 'Fig. 4c — All 5,000 Monte Carlo draws: unit production cost ($/kg HF) and cradle-to-gate emissions (kg CO2eq/kg HF) by route and grade',
+           'Draw i uses the input values in row i of sheet Fig4c_inputs. Gap = fluorspar minus FSA. Fig. 4c plots the gap columns.')
+hd = ['Draw']
+for g in GRADES:
+    hd += [f'UPC fluorspar, {GL[g]}', f'UPC FSA, {GL[g]}', f'Cost gap, {GL[g]}']
+for g in GRADES:
+    hd += [f'CtG fluorspar, {GL[g]}', f'CtG FSA, {GL[g]}']
+header(ws, hd)
+n_mc = len(mc[f'U_S_{E}'])
+for i in range(n_mc):
+    r = [i + 1]
+    for g in GRADES:
+        us, uf = float(mc[f'U_S_{g}'][i]), float(mc[f'U_F_{g}'][i]); r += [round(us, 5), round(uf, 5), round(us - uf, 5)]
+    for g in GRADES:
+        r += [round(float(mc[f'N_S_{g}'][i]), 5), round(float(mc[f'N_F_{g}'][i]), 5)]
+    ws.append(r)
+with open(os.path.join(os.path.dirname(DATA), 'inputs', 'parameters.csv'), encoding='utf-8') as f:
+    PAR = {}
+    for row in csv.DictReader(f): PAR.setdefault(row['parameter'], row)
+IN_KEYS = [k[3:] for k in mc.files if k.startswith('in_')]
+def in_label(k):
+    if k == 'p_rm_scale': return 'Phosphorus removal increment, fraction of the high case', '-', 0.0, 1.0, 'uniform'
+    r = PAR[{'ci_h2so4_ctg': 'ci_h2so4', 'ci_elec_ctg': 'ci_elec'}.get(k, k)]
+    lo, hi = r['mc_low'].replace('CtG ', ''), r['mc_high'].replace('CtG ', '')
+    desc = r['description'] + (', cradle-to-gate' if k.endswith('_ctg') else '')
+    return desc, r['unit'].replace('0 / ', ''), float(lo), float(hi), 'triangular'
+ws = sheet('Fig4c_inputs', 'Fig. 4c — Input values sampled in each Monte Carlo draw (N = 5,000, seed 20260929; SI Table S8)',
+           'Rows 4–9 describe each column; draws start at row 10. Capital cost of the FSA-route plant is multiplied by the location factor in the model.')
+lab = [in_label(k) for k in IN_KEYS]
+for name, j in (('Parameter', None), ('Description', 0), ('Unit', 1), ('Low', 2), ('High', 3), ('Distribution', 4)):
+    header(ws, [name] + (IN_KEYS if j is None else [l[j] for l in lab]))
+for i in range(n_mc):
+    ws.append([i + 1] + [round(float(mc['in_' + k][i]), 6) for k in IN_KEYS])
 copy_sheet('FigA.1')
 ws = sheet('FigS1', 'Fig. S1 — System boundary and multifunctional points (diagram, no plotted values)', 'See SI Table S6.')
 header(ws, ['Point', 'Flow', 'Route', 'Base method', 'Base value'])

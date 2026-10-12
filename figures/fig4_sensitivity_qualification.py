@@ -34,7 +34,7 @@ TAB = {
     "Purification AHF input": ("t/t", "1.14", "1.39", "1.39"),
     "Fluorspar-route capital cost": ("$/(t/yr)", "1,388", "2,234", "2,355"),
     "Gypsum landfill cost": ("$/t", "3.5", "20", "70"), "Oleum price ratio": ("–", "1.0", "1.1", "2.5"),
-    "FSA-route steam": ("GJ/t", "12", "14", "16"), "Phosphorus removal increment": ("–", "0", "0", "High case"),
+    "FSA-route steam": ("GJ/t", "12", "14", "16"), "Phosphorus removal increment": ("$/kg", "0", "0", "0.094"),
     "Steam price": ("$/GJ", "12.8", "18.8", "23.5"), "Fluorspar-route electricity": ("kWh/t", "150", "250", "556"),
     "Electricity price": ("$/kWh", "0.108", "0.118", "0.128"), "Natural gas price": ("$/GJ", "14.3", "16.7", "20.2"),
     "AHF plant staffing": ("persons/kt", "1.44", "1.92", "2.40"), "Kiln fuel": ("GJ/t", "4.0", "5.0", "6.8"),

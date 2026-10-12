@@ -15,7 +15,7 @@ The model compares hydrogen fluoride (HF) made from mined fluorspar with HF made
 | `results/mc_results.npz` | Monte Carlo output read by the figure scripts (regenerated exactly by `model/monte_carlo.py`) |
 | `inputs/parameters.csv` | Every model input with its base value, Monte Carlo range, unit, and the Supplementary Information table that gives its source |
 | `data/usgs_mcs2026_production_2025.csv` | Fluorspar and phosphate rock production by country, 2025 estimates (USGS Mineral Commodity Summaries 2026) |
-| `data/figure_source_data.xlsx` | Plotted values of every figure, one sheet per figure (built by `figures/build_source_data.py`) |
+| `data/figure_source_data.xlsx` | Plotted values of every figure, one sheet per figure, and all 5,000 Monte Carlo draws with their sampled inputs (built by `figures/build_source_data.py`) |
 | `data/source_dossier.xlsx` | Non-English and web sources behind the input values, with the original wording, an English translation, and the capital-cost anchors |
 | `figures/` | Scripts that draw Figs. 2–4, Fig. A.1, and Fig. S1 |
 
