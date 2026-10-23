@@ -71,6 +71,7 @@ The published figures were assembled and lettered in PowerPoint from these outpu
 
 ## Versions
 
+- v1.2.1: metadata only. The first author's affiliation corrected to match the article; files unchanged from v1.2.
 - v1.2: version revised after co-author review. Article retitled and author affiliations updated; Supplementary Information sections renumbered (Section S14 for the supply and demand ranges in Fig. 3c); Fig. S2 moved to Appendix Fig. A.2 (sheet `FigA.2`); Fig. 3c redrawn on the AHF basis (1.39 t AHF per t electronic-grade HF) and Fig. 4 re-laid out with the input values in the tornado labels; units written as kgCO2eq; source dossier cites the 2025 fluorspar review and records the co-product basis of the Kaisheng report. Model inputs and results are unchanged from v1.1.
 - v1.1: corrected the GREET phosphoric acid factor to a metric-tonne basis (1,379 kgCO2eq/t P2O5), put the FSA-route steam on the same enthalpy basis as the steam price (14 GJ/t HF), set the electronic-grade AHF input to the disclosed design ratio (1.39), and aligned several input ranges with their sources; added the source dossier.
 - v1.0: version submitted with the manuscript.
