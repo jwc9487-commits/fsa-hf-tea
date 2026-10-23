@@ -1,12 +1,26 @@
 {
-  "title": "Fluorspar versus fluorosilicic acid for electronic-grade hydrogen fluoride: model, data, and figure scripts",
-  "description": "Process model, input tables, Monte Carlo results, and figure scripts for the article 'Fluorspar versus fluorosilicic acid for electronic-grade hydrogen fluoride: A grade-resolved techno-economic, life-cycle, and impurity assessment' (Resources, Conservation and Recycling, submitted). The model compares hydrogen fluoride made from mined fluorspar with hydrogen fluoride made from fluorosilicic acid at three purity grades for a Korean reference site, and reports unit production cost and greenhouse gas emissions.",
+  "title": "Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: model, data, and figure scripts",
+  "description": "Process model, input tables, Monte Carlo results, source dossier, and figure scripts for the article 'Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: A grade-resolved techno-economic and life cycle assessment' (Resources, Conservation and Recycling, submitted). The model compares hydrogen fluoride made from mined fluorspar with hydrogen fluoride made from fluorosilicic acid at three purity grades for a Korean reference site, and reports unit production cost and greenhouse gas emissions.",
   "upload_type": "software",
   "creators": [
-    {"name": "Jeong, Woochang", "affiliation": "School of Chemical Engineering, Sungkyunkwan University"},
-    {"name": "Kim, Jiyong", "affiliation": "School of Chemical Engineering, Sungkyunkwan University"}
+    {
+      "name": "Jeong, Woochang",
+      "affiliation": "School of Chemical Engineering, and SKKU National Lab for Intelligent Energy Solution Technology (SIEST), Sungkyunkwan University"
+    },
+    {
+      "name": "Kim, Jiyong",
+      "affiliation": "School of Chemical Engineering, and SKKU National Lab for Intelligent Energy Solution Technology (SIEST), Sungkyunkwan University"
+    }
   ],
-  "keywords": ["hydrogen fluoride", "fluorosilicic acid", "fluorspar", "techno-economic analysis", "life cycle assessment", "critical raw materials"],
+  "keywords": [
+    "hydrogen fluoride",
+    "fluorosilicic acid",
+    "fluorspar",
+    "critical raw materials",
+    "techno-economic assessment",
+    "life cycle assessment",
+    "electronic-grade chemicals"
+  ],
   "license": "MIT",
   "access_right": "open"
 }

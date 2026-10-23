@@ -1,11 +1,12 @@
 """Fig. 3. Resource conservation and its emission trade-off for FSA-derived HF.
 (a) Change in cradle-to-gate emissions per kg of fluorspar conserved versus the
     marginal FSA share of supply; (b) the same versus the share of silica sold.
-(c) Fluorspar avoided versus HF supplied from FSA, with electronic-grade demand
-    (2025 and projected 2035) and the HF that current and potential FSA recovery
-    could supply. (d) Producer shares of fluorspar and phosphate rock.
+(c) Fluorspar avoided versus AHF supplied from FSA, with the AHF required for the
+    electronic-grade demand (2025 and projected 2035; 1.39 t AHF per t electronic-grade
+    HF, the remainder leaving purification as industrial-grade HF) and the AHF that
+    current and potential FSA recovery could supply. (d) Producer shares of fluorspar and phosphate rock.
 Values: model/hf_tea_lca.py; data/usgs_mcs2026_production_2025.csv (USGS MCS 2026);
-demand and recovery ranges in SI Section S15.
+demand and recovery ranges in SI Section S14.
 Output: output/Fig3_resource.(png|svg)
 """
 import csv, os
@@ -43,9 +44,12 @@ V = np.linspace(0, 2.2, 221)
 DEM = (0.3, 0.4)                                # electronic-grade HF demand 2025, Mt/yr
 GROW = 0.06                                     # MarketsandMarkets 2025-2030 value growth used as a volume proxy, extended to 2035
 DEM35 = tuple(v*(1 + GROW)**10 for v in DEM)    # 2035: 0.537-0.716 Mt/yr
-FSA_HFEQ = P["fsa_t"] * 6 * 20.006 / 144.09     # 1.55 t FSA = 1.29 t HF-eq per t HF supplied
-REC_NOW = tuple(v / FSA_HFEQ for v in (0.3, 1.0))      # current recovery 0.3-1.0 Mt HF-eq -> HF that could be supplied
-REC_REAL = tuple(v / FSA_HFEQ for v in (0.5, 2.0))     # potential recovery 0.5-2.0 Mt HF-eq (SI Section S15)
+AHF_IN = P["ahf_in"]                            # t AHF per t electronic-grade HF (gross feed requirement)
+DEM_AHF = tuple(v*AHF_IN for v in DEM)          # 2025: 0.417-0.556 Mt AHF/yr
+DEM35_AHF = tuple(v*AHF_IN for v in DEM35)      # 2035: 0.747-0.996 Mt AHF/yr
+FSA_HFEQ = P["fsa_t"] * 6 * 20.006 / 144.09     # 1.55 t FSA = 1.29 t HF-eq per t AHF supplied
+REC_NOW = tuple(v / FSA_HFEQ for v in (0.3, 1.0))      # current recovery 0.3-1.0 Mt HF-eq -> AHF that could be supplied
+REC_REAL = tuple(v / FSA_HFEQ for v in (0.5, 2.0))     # potential recovery 0.5-2.0 Mt HF-eq (SI Section S14)
 WORLD_SPAR = 10.0                               # Mt/yr world fluorspar production, 2025
 
 # (d) producer shares (USGS MCS 2026, 2025 estimates)
@@ -76,7 +80,7 @@ for (lab, y), ls in zip(A.items(), ("--", "-")):
     a.plot([xb], [0], "o", ms=4.5, mfc="white", mec=C_RED, mew=1.1, zorder=5)
 a.set_xlim(0, 40); a.set_ylim(-0.45, 0.3)
 a.set_xlabel("Marginal FSA share of supply (%)")
-a.set_ylabel("ΔGHG per fluorspar conserved\n(kg CO$_{2eq}$/kg fluorspar)")
+a.set_ylabel("ΔGHG per fluorspar conserved\n(kgCO$_{2eq}$/kg fluorspar)")
 a.text(39.5, 0.285, "Higher emission, FSA route", ha="right", va="top", fontsize=6.2, color=C_GREY)
 a.text(39.5, -0.435, "Lower emission, FSA route", ha="right", va="bottom", fontsize=6.2, color=C_GREY)
 a.legend(loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=2, fontsize=6.0, frameon=False, handlelength=2.0, columnspacing=1.0)
@@ -89,36 +93,36 @@ for (lab, y), ls in zip(Bs.items(), ("--", "-")):
     a.plot([xb], [0], "o", ms=4.5, mfc="white", mec=C_RED, mew=1.1, zorder=5)
 a.set_xlim(0, 100); a.set_ylim(-0.6, 0.3)
 a.set_xlabel("Silica sold as co-product (%)")
-a.set_ylabel("ΔGHG per fluorspar conserved\n(kg CO$_{2eq}$/kg fluorspar)")
+a.set_ylabel("ΔGHG per fluorspar conserved\n(kgCO$_{2eq}$/kg fluorspar)")
 a.text(99, 0.285, "Higher emission, FSA route", ha="right", va="top", fontsize=6.2, color=C_GREY)
 a.text(99, -0.585, "Lower emission, FSA route", ha="right", va="bottom", fontsize=6.2, color=C_GREY)
 a.legend(loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=2, fontsize=6.0, frameon=False, handlelength=2.0, columnspacing=1.0)
 
 # ---- (c)
 a = ax[2]
-a.axvspan(*DEM, color=C_RED, alpha=0.22, lw=0)
+a.axvspan(*DEM_AHF, color=C_RED, alpha=0.22, lw=0)
 C_RED35 = tuple(0.9 + 0.1*c for c in matplotlib.colors.to_rgb(C_RED))    # 2035 band: light solid fill with dashed edges
-a.axvspan(*DEM35, color=C_RED35, lw=0, zorder=0)
-for xe in DEM35:
+a.axvspan(*DEM35_AHF, color=C_RED35, lw=0, zorder=0)
+for xe in DEM35_AHF:
     a.axvline(xe, color=C_RED, lw=0.8, ls=(0, (3, 2)), zorder=1)
 for (x0, x1), yb, col, lab, (tx, ty, tva) in (
-        (REC_REAL, 4.85, C_FSA2, "Potential FSA recovery", (DEM35[1] + 0.04, 4.85 + 0.17, "bottom")),
-        (REC_NOW, 4.05, C_FSA, "Current FSA recovery", (REC_NOW[1] + 0.06, 4.05, "center"))):
+        (REC_REAL, 4.95, C_FSA2, "Potential FSA recovery", (DEM35_AHF[1] + 0.04, 4.95 + 0.17, "bottom")),
+        (REC_NOW, 4.45, C_FSA, "Current FSA recovery", (DEM35_AHF[1] + 0.04, 4.45, "center"))):
     a.plot([x0, x1], [yb, yb], "-", color=col, lw=2.0, solid_capstyle="butt", zorder=4)
     for xe in (x0, x1):
         a.plot([xe, xe], [yb - 0.13, yb + 0.13], "-", color=col, lw=1.0, zorder=4)
-    a.text(tx, ty, lab, ha="left", va=tva, fontsize=6.2, color=col)
+    a.text(tx, ty, lab, ha="left", va=tva, fontsize=7, fontweight="bold", color="black")
 a.plot(V, V*SPAR, "-", color=C_SPAR, lw=1.6)
 a.set_xlim(0, 2.2); a.set_ylim(0, 5.5)
-a.set_xlabel("HF supplied from FSA (Mt/yr)")
-a.set_ylabel("Fluorspar avoided (Mt/yr)")
+a.set_xlabel("AHF supplied from FSA (Mt/yr)", fontsize=9)
+a.set_ylabel("Fluorspar avoided (Mt/yr)", fontsize=9)
 sec = a.secondary_yaxis("right", functions=(lambda y: y/WORLD_SPAR*100, lambda p: p*WORLD_SPAR/100))
-sec.set_ylabel("World fluorspar output (%)", fontweight="bold")
+sec.set_ylabel("World fluorspar output (%)", fontweight="bold", fontsize=9)
 sec.tick_params(labelsize=7)
-a.legend(handles=[Patch(facecolor=C_RED, alpha=0.22, lw=0, label="Electronic-grade demand, 2025"),
-                  Patch(facecolor=C_RED35, edgecolor=C_RED, ls=(0, (3, 2)), lw=0.8, label="Projected demand, 2035")],
-         loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=2, fontsize=6.0, frameon=False,
-         handlelength=1.4, handleheight=0.9, columnspacing=1.0)
+a.legend(handles=[Patch(facecolor=C_RED, alpha=0.22, lw=0, label="AHF for electronic-grade demand, 2025"),
+                  Patch(facecolor=C_RED35, edgecolor=C_RED, ls=(0, (3, 2)), lw=0.8, label="AHF for projected demand, 2035")],
+         loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=1, fontsize=7, frameon=False,
+         handlelength=1.4, handleheight=0.9, labelspacing=0.3)
 
 # ---- (d)
 a = ax[3]
@@ -154,7 +158,7 @@ for k, (a, l) in enumerate(zip(ax, "abcd")):
     for sp in a.spines.values(): sp.set_visible(True)
 
 save(fig, "Fig3_resource")
-print(f"base ΔGHG {base:.3f} kg CO2eq/kg fluorspar; break-even (a) marginal FSA share %:",
+print(f"base ΔGHG {base:.3f} kgCO2eq/kg fluorspar; break-even (a) marginal FSA share %:",
       [round(float(np.interp(0, -y, x*100)), 1) for y in A.values()],
       "(b) silica sold %:", [round(float(np.interp(0, -y, s*100)), 1) for y in Bs.values()])
 print("fluorspar top 3", [(c, round(v, 1)) for c, v in SF], "HHI", round(HF_),

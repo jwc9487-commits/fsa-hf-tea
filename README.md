@@ -1,8 +1,8 @@
-# Fluorspar versus fluorosilicic acid for electronic-grade hydrogen fluoride
+# Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production
 
 Process model, input tables, and figure scripts for
 
-> Jeong, W., Kim, J. Fluorspar versus fluorosilicic acid for electronic-grade hydrogen fluoride: A grade-resolved techno-economic, life-cycle, and impurity assessment. *Resources, Conservation and Recycling* (submitted).
+> Jeong, W., Kim, J. Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: A grade-resolved techno-economic and life cycle assessment. *Resources, Conservation and Recycling* (submitted).
 
 The model compares hydrogen fluoride (HF) made from mined fluorspar with HF made from fluorosilicic acid (FSA), a by-product of phosphate processing. It covers three purity grades (technical, high-purity, electronic) at a Korean reference site with 2025 prices. For each route and grade it reports the unit production cost and the greenhouse gas emissions, on-site and cradle-to-gate. The functional unit is 1 kg of HF (100 %).
 
@@ -10,7 +10,7 @@ The model compares hydrogen fluoride (HF) made from mined fluorspar with HF made
 
 | Path | Content |
 |---|---|
-| `model/hf_tea_lca.py` | Techno-economic and life-cycle model: parameters `P`, cost and emission items by route and grade, multifunctionality scenarios, one-at-a-time sensitivity list `SENS` |
+| `model/hf_tea_lca.py` | Techno-economic and life cycle model: parameters `P`, cost and emission items by route and grade, multifunctionality scenarios, one-at-a-time sensitivity list `SENS` |
 | `model/monte_carlo.py` | Monte Carlo analysis (triangular distributions, N = 5,000, seed 20260929) |
 | `results/mc_results.npz` | Monte Carlo output read by the figure scripts (regenerated exactly by `model/monte_carlo.py`) |
 | `inputs/parameters.csv` | Every model input with its base value, Monte Carlo range, unit, and the Supplementary Information table that gives its source |
@@ -51,8 +51,8 @@ Figures are written to `output/` as PNG (500 dpi) and SVG.
 | Fig. 3 | `figures/fig3_resource.py` | `Fig3_resource` |
 | Fig. 4 | `figures/fig4_sensitivity_qualification.py` | `Fig4_sensitivity_qualification` |
 | Fig. A.1 | `figures/figA1_price_supply.py` | `FigA1_price_supply` |
+| Fig. A.2 | values in `data/figure_source_data.xlsx`, sheet `FigA.2` | – |
 | Fig. S1 | `figures/figS1_system_boundary.py` | `FigS1_system_boundary` |
-| Fig. S2 | values in `data/figure_source_data.xlsx`, sheet `FigS2` | – |
 
 The published figures were assembled and lettered in PowerPoint from these outputs; the plotted values are identical.
 
@@ -61,7 +61,7 @@ The published figures were assembled and lettered in PowerPoint from these outpu
 | | Fluorspar route | FSA route |
 |---|---|---|
 | Unit production cost ($/kg HF) | 2.92 | 1.90 |
-| Cradle-to-gate emissions (kg CO2eq/kg HF) | 1.91 | 2.48 |
+| Cradle-to-gate emissions (kgCO2eq/kg HF) | 1.91 | 2.48 |
 
 ## Model conventions
 
@@ -71,7 +71,8 @@ The published figures were assembled and lettered in PowerPoint from these outpu
 
 ## Versions
 
-- v1.1: corrected the GREET phosphoric acid factor to a metric-tonne basis (1,379 kg CO2eq/t P2O5), put the FSA-route steam on the same enthalpy basis as the steam price (14 GJ/t HF), set the electronic-grade AHF input to the disclosed design ratio (1.39), and aligned several input ranges with their sources; added the source dossier.
+- v1.2: version revised after co-author review. Article retitled and author affiliations updated; Supplementary Information sections renumbered (Section S14 for the supply and demand ranges in Fig. 3c); Fig. S2 moved to Appendix Fig. A.2 (sheet `FigA.2`); Fig. 3c redrawn on the AHF basis (1.39 t AHF per t electronic-grade HF) and Fig. 4 re-laid out with the input values in the tornado labels; units written as kgCO2eq; source dossier cites the 2025 fluorspar review and records the co-product basis of the Kaisheng report. Model inputs and results are unchanged from v1.1.
+- v1.1: corrected the GREET phosphoric acid factor to a metric-tonne basis (1,379 kgCO2eq/t P2O5), put the FSA-route steam on the same enthalpy basis as the steam price (14 GJ/t HF), set the electronic-grade AHF input to the disclosed design ratio (1.39), and aligned several input ranges with their sources; added the source dossier.
 - v1.0: version submitted with the manuscript.
 
 ## License

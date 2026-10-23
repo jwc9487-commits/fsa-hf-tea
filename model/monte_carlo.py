@@ -78,7 +78,7 @@ for k, (lo, m, hi) in TRI.items():
     base = {"ci_h2so4_ctg": P["ci_h2so4"][1], "ci_elec_ctg": P["ci_elec"][1]}.get(k, P.get(k))
     assert abs(base - m) < 1e-6 * max(1, abs(m)), (k, base, m)
 
-# U = unit production cost ($/kg), N = cradle-to-gate emissions (kg CO2eq/kg); S = fluorspar route, F = FSA route
+# U = unit production cost ($/kg), N = cradle-to-gate emissions (kgCO2eq/kg); S = fluorspar route, F = FSA route
 OUT = {f"{m}_{r}_{g}": np.empty(N) for m in ("U", "N") for r in ("S", "F") for g in GRADES}
 for i in range(N):
     p = build(i)

@@ -1,11 +1,11 @@
 """
-Grade-resolved techno-economic and life-cycle model of hydrogen fluoride (HF)
+Grade-resolved techno-economic and life cycle model of hydrogen fluoride (HF)
 production from fluorspar and from fluorosilicic acid (FSA).
 
 Companion code for:
-  Jeong, W., Kim, J. Fluorspar versus fluorosilicic acid for electronic-grade
-  hydrogen fluoride: A grade-resolved techno-economic, life-cycle, and impurity
-  assessment. Resources, Conservation and Recycling (submitted).
+  Jeong, W., Kim, J. Fluorosilicic acid as an alternative to fluorspar for
+  electronic-grade hydrogen fluoride production: A grade-resolved techno-economic
+  and life cycle assessment. Resources, Conservation and Recycling (submitted).
 
 Scope
 -----
@@ -35,7 +35,7 @@ Source tags in the comments
   [LAB]      economic convention of the research group
 
 Units: costs in $/t HF inside the model and $/kg HF in `totals`; emissions in
-kg CO2eq/kg HF.
+kgCO2eq/kg HF.
 
 Run `python model/hf_tea_lca.py` to print the base-case results, the cost and
 emission breakdowns, the multifunctionality scenarios, and the one-at-a-time
@@ -86,16 +86,16 @@ P = {
     # ---- Phosphorus removal increment, electronic grade, FSA route (base 0; high case in SENS) [S2] ----
     "p_capex_frac": 0.0, "p_rm_steam": 0.0, "p_rm_elec": 0.0, "p_yield": 0.0,
     # ---- Emission factors (GtG, CtG) [S5] ----
-    "ci_elec":   (0.4541, 0.53),     # kg/kWh: GIR 2024 consumption-end / Korean life-cycle factor
+    "ci_elec":   (0.4541, 0.53),     # kg/kWh: GIR 2024 consumption-end / Korean life cycle factor
     "ci_steam":  (0.0706, 0.0960),   # kg/MJ steam: GREET combustion 56.49 g/MJ / 0.8 boiler; + LNG upstream 20.3 g/MJ, / 0.8
     "ci_ng":     (0.0562, 0.0765),   # kg/MJ fuel: IPCC 2006 / + LNG upstream 20.3 g/MJ
     "ci_spar":   (0.0, 0.0945),      # kg/kg acid-grade fluorspar (GREET 2023)
     "fsa_alloc": None,               # FSA upstream burden (M1): None = economic allocation linked to p_fsa; scenarios 0 (cut-off) and 1.86 (mass)
-    "e_p2o5": 1379, "m_fsa_p2o5": 0.040, "p_p2o5": 1000,   # kg CO2eq/t P2O5 (GREET 1,251 per short ton / 0.90718) · t FSA/t P2O5 (BREF) · $/t P2O5 (900-1,300)
+    "e_p2o5": 1379, "m_fsa_p2o5": 0.040, "p_p2o5": 1000,   # kgCO2eq/t P2O5 (GREET 1,251 per short ton / 0.90718) · t FSA/t P2O5 (BREF) · $/t P2O5 (900-1,300)
     "ci_h2so4":  (0.0, 0.17),        # kg/kg sulfuric acid 98 % (KEITI; GREET 0.045 = low value)
     "ci_oleum":  (0.0, 0.197),       # kg/kg H2SO4-eq oleum (KEITI 0.206/kg product / 1.045)
     "ci_lime":   (0.0, 0.97),        # kg/kg lime (GREET 2023)
-    # ---- Credits and burdens (kg CO2eq/kg HF), 0 in the base case [S6, S7] ----
+    # ---- Credits and burdens (kgCO2eq/kg HF), 0 in the base case [S6, S7] ----
     "cr_neutral": 0.0,    # avoided neutralization of FSA (lime -2.3; limestone -1.5); marginal FSA only
     "cr_silica":  0.0,    # silica substitution (-0.75 to -1.3); paired with silica revenue in the TEA
     "bd_acid":    0.0,    # reconcentration of diluted acid at a non-integrated site (+2.4 to +3.6)
@@ -115,7 +115,7 @@ ROUTES = ["Fluorspar", "FSA"]
 B = {"GtG": 0, "CtG": 1}
 
 def fsa_upstream(p):
-    """M1: upstream burden allocated to FSA, kg CO2eq/kg HF. If fsa_alloc is None,
+    """M1: upstream burden allocated to FSA, kgCO2eq/kg HF. If fsa_alloc is None,
     economic allocation between P2O5 and FSA is computed from p_fsa."""
     if p["fsa_alloc"] is not None:
         return p["fsa_alloc"]
@@ -140,7 +140,7 @@ def validate(p):
         raise ValueError("Non-integrated site: the LCA burden and the TEA cost are switched on together")
 
 def ahf(route, p, bd):
-    """Technical-grade AHF: cost items ($/t HF) and emission items (kg CO2eq/kg HF)."""
+    """Technical-grade AHF: cost items ($/t HF) and emission items (kgCO2eq/kg HF)."""
     i = B[bd]
     if route == "Fluorspar":
         c = dict(feed=p["spar_t"]*p["p_spar"],
@@ -171,7 +171,7 @@ def ahf(route, p, bd):
                  fuel=0.0, steam=p["stm_fsa"]*p["ci_steam"][i],
                  elec=p["el_fsa"]*p["ci_elec"][i]/1000, disposal=0.0,
                  credit=(p["cr_neutral"] + p["cr_silica"]) if bd == "CtG" else 0.0)
-    return c, e      # $/t HF, kg CO2eq/kg HF
+    return c, e      # $/t HF, kgCO2eq/kg HF
 
 def route_grade(route, grade, p=None, bd="CtG"):
     """Cost and emission items of one route at one grade (AHF plus purification increment)."""
@@ -202,7 +202,7 @@ def route_grade(route, grade, p=None, bd="CtG"):
     return {k: v/yl for k, v in cc.items()}, {k: v/yl for k, v in ee.items()}
 
 def totals(route, grade, p=None, bd="CtG"):
-    """Unit production cost ($/kg HF) and GHG emissions (kg CO2eq/kg HF)."""
+    """Unit production cost ($/kg HF) and GHG emissions (kgCO2eq/kg HF)."""
     c, e = route_grade(route, grade, p, bd)
     return sum(c.values())/1000, sum(e.values())
 
@@ -258,7 +258,7 @@ SENS = [
 if __name__ == "__main__":
     cols = [(r, g) for r in ROUTES for g in GRADES]
     print(f"CRF {CRF:.4f} · fixed O&M 3 % · labor overhead 15 % · Korean 2025 prices\n")
-    print("="*96); print(" Results: UPC $/kg · GHG kg CO2eq/kg (on-site GtG / cradle-to-gate CtG); base case: M1 economic allocation linked to p_fsa, gypsum value 0, integrated site, silica returned"); print("="*96)
+    print("="*96); print(" Results: UPC $/kg · GHG kgCO2eq/kg (on-site GtG / cradle-to-gate CtG); base case: M1 economic allocation linked to p_fsa, gypsum value 0, integrated site, silica returned"); print("="*96)
     for g in GRADES:
         us, _ = totals("Fluorspar", g); uf, _ = totals("FSA", g)
         n = {(r, b): totals(r, g, bd=b)[1] for r in ROUTES for b in B}
@@ -279,8 +279,8 @@ if __name__ == "__main__":
             print(f" {k:20s}" + "".join(f"{v:12.3f}" for v in vals))
         print(f" {'TOTAL':20s}" + "".join(f"{sum(data[col].values())/scale:12.3f}" for col in cols))
     table("UPC breakdown ($/kg HF)", 0, 1000)
-    table("GHG breakdown, on-site GtG (kg CO2eq/kg HF)", 1, 1, "GtG")
-    table("GHG breakdown, cradle-to-gate CtG (kg CO2eq/kg HF, base case)", 1, 1, "CtG")
+    table("GHG breakdown, on-site GtG (kgCO2eq/kg HF)", 1, 1, "GtG")
+    table("GHG breakdown, cradle-to-gate CtG (kgCO2eq/kg HF, base case)", 1, 1, "CtG")
 
     print("\n" + "="*96); print(" Multifunctionality and site scenarios (CtG, fluorspar/FSA, ratio, UPC gap)"); print("="*96)
     CRED = [
