@@ -2,7 +2,7 @@
 
 Process model, input tables, and figure scripts for
 
-> Jeong, W., Kim, J. Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: A grade-resolved techno-economic and life cycle assessment. *Resources, Conservation and Recycling* (submitted).
+> Jeong, W., Kim, J. Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: A grade-resolved techno-economic and life cycle assessment. Manuscript submitted for publication.
 
 The model compares hydrogen fluoride (HF) made from mined fluorspar with HF made from fluorosilicic acid (FSA), a by-product of phosphate processing. It covers three purity grades (technical, high-purity, electronic) at a Korean reference site with 2025 prices. For each route and grade it reports the unit production cost and the greenhouse gas emissions, on-site and cradle-to-gate. The functional unit is 1 kg of HF (100 %).
 
@@ -71,6 +71,7 @@ The published figures were assembled and lettered in PowerPoint from these outpu
 
 ## Versions
 
+- v1.2.2: metadata only. Journal name removed from the manuscript status; files unchanged from v1.2.1.
 - v1.2.1: metadata only. The first author's affiliation corrected to match the article; files unchanged from v1.2.
 - v1.2: version revised after co-author review. Article retitled and author affiliations updated; Supplementary Information sections renumbered (Section S14 for the supply and demand ranges in Fig. 3c); Fig. S2 moved to Appendix Fig. A.2 (sheet `FigA.2`); Fig. 3c redrawn on the AHF basis (1.39 t AHF per t electronic-grade HF) and Fig. 4 re-laid out with the input values in the tornado labels; units written as kgCO2eq; source dossier cites the 2025 fluorspar review and records the co-product basis of the Kaisheng report. Model inputs and results are unchanged from v1.1.
 - v1.1: corrected the GREET phosphoric acid factor to a metric-tonne basis (1,379 kgCO2eq/t P2O5), put the FSA-route steam on the same enthalpy basis as the steam price (14 GJ/t HF), set the electronic-grade AHF input to the disclosed design ratio (1.39), and aligned several input ranges with their sources; added the source dossier.

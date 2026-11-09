@@ -1,6 +1,6 @@
 {
   "title": "Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: model, data, and figure scripts",
-  "description": "Process model, input tables, Monte Carlo results, source dossier, and figure scripts for the article 'Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: A grade-resolved techno-economic and life cycle assessment' (Resources, Conservation and Recycling, submitted). The model compares hydrogen fluoride made from mined fluorspar with hydrogen fluoride made from fluorosilicic acid at three purity grades for a Korean reference site, and reports unit production cost and greenhouse gas emissions.",
+  "description": "Process model, input tables, Monte Carlo results, source dossier, and figure scripts for the article 'Fluorosilicic acid as an alternative to fluorspar for electronic-grade hydrogen fluoride production: A grade-resolved techno-economic and life cycle assessment' (manuscript submitted for publication). The model compares hydrogen fluoride made from mined fluorspar with hydrogen fluoride made from fluorosilicic acid at three purity grades for a Korean reference site, and reports unit production cost and greenhouse gas emissions.",
   "upload_type": "software",
   "creators": [
     {
