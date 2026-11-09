@@ -17,7 +17,7 @@ The model compares hydrogen fluoride (HF) made from mined fluorspar with HF made
 | `data/usgs_mcs2026_production_2025.csv` | Fluorspar and phosphate rock production by country, 2025 estimates (USGS Mineral Commodity Summaries 2026) |
 | `data/figure_source_data.xlsx` | Plotted values of every figure, one sheet per figure, and all 5,000 Monte Carlo draws with their sampled inputs (built by `figures/build_source_data.py`) |
 | `data/source_dossier.xlsx` | Non-English and web sources behind the input values, with the original wording, an English translation, and the capital-cost anchors |
-| `figures/` | Scripts that draw Figs. 2–4, Fig. A.1, and Fig. S1 |
+| `figures/` | Scripts that draw Fig. 1, Figs. 3–5, and Fig. S1 of the article |
 
 ## Requirements
 
@@ -44,15 +44,17 @@ python figures/build_source_data.py   # rebuilds data/figure_source_data.xlsx
 
 Figures are written to `output/` as PNG (500 dpi) and SVG.
 
-| Figure in the article | Script | Output |
-|---|---|---|
-| Fig. 1 | schematic drawn by the authors, no model values | – |
-| Fig. 2a, 2b | `figures/fig2_cost_ghg.py` | `Fig2a_cost`, `Fig2b_ghg` |
-| Fig. 3 | `figures/fig3_resource.py` | `Fig3_resource` |
-| Fig. 4 | `figures/fig4_sensitivity_qualification.py` | `Fig4_sensitivity_qualification` |
-| Fig. A.1 | `figures/figA1_price_supply.py` | `FigA1_price_supply` |
-| Fig. A.2 | values in `data/figure_source_data.xlsx`, sheet `FigA.2` | – |
-| Fig. S1 | `figures/figS1_system_boundary.py` | `FigS1_system_boundary` |
+| Figure in the article | Script | Output | Sheet in `data/figure_source_data.xlsx` |
+|---|---|---|---|
+| Fig. 1 | `figures/figA1_price_supply.py` | `FigA1_price_supply` | `FigA.1` |
+| Fig. 2 | schematic drawn by the authors, no model values | – | `Fig1` |
+| Fig. 3a, 3b | `figures/fig2_cost_ghg.py` | `Fig2a_cost`, `Fig2b_ghg` | `Fig2a`, `Fig2b` |
+| Fig. 4 | `figures/fig3_resource.py` | `Fig3_resource` | `Fig3` |
+| Fig. 5 | `figures/fig4_sensitivity_qualification.py` | `Fig4_sensitivity_qualification` | `Fig4ab`, `Fig4c`, `Fig4b_draws`, `Fig4b_inputs` |
+| Fig. 6 | values in the sheet listed here | – | `FigA.2` |
+| Fig. S1 | `figures/figS1_system_boundary.py` | `FigS1_system_boundary` | `FigS1` |
+
+Script, output, and sheet names, and the figure labels inside those files, keep the numbering of earlier archive versions. The first column gives the numbering of the article.
 
 The published figures were assembled and lettered in PowerPoint from these outputs; the plotted values are identical.
 
@@ -71,6 +73,7 @@ The published figures were assembled and lettered in PowerPoint from these outpu
 
 ## Versions
 
+- v1.2.3: metadata only. Journal name removed from the header comment of `model/hf_tea_lca.py`, and the figure table in this README updated to the numbering of the article. Model, data, and results are unchanged from v1.2.2.
 - v1.2.2: metadata only. Journal name removed from the manuscript status; files unchanged from v1.2.1.
 - v1.2.1: metadata only. The first author's affiliation corrected to match the article; files unchanged from v1.2.
 - v1.2: version revised after co-author review. Article retitled and author affiliations updated; Supplementary Information sections renumbered (Section S14 for the supply and demand ranges in Fig. 3c); Fig. S2 moved to Appendix Fig. A.2 (sheet `FigA.2`); Fig. 3c redrawn on the AHF basis (1.39 t AHF per t electronic-grade HF) and Fig. 4 re-laid out with the input values in the tornado labels; units written as kgCO2eq; source dossier cites the 2025 fluorspar review and records the co-product basis of the Kaisheng report. Model inputs and results are unchanged from v1.1.

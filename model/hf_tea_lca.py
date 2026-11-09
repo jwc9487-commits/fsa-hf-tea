@@ -5,7 +5,7 @@ production from fluorspar and from fluorosilicic acid (FSA).
 Companion code for:
   Jeong, W., Kim, J. Fluorosilicic acid as an alternative to fluorspar for
   electronic-grade hydrogen fluoride production: A grade-resolved techno-economic
-  and life cycle assessment. Resources, Conservation and Recycling (submitted).
+  and life cycle assessment. Manuscript submitted for publication.
 
 Scope
 -----
